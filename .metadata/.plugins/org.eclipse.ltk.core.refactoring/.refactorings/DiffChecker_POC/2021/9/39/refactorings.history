@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;resultantDifference&apos; from expression &apos;dc.diffCheckerMain(firstStringIp.getText(),secondStringIp.getText())&apos;&#x0A;- Original project: &apos;DiffChecker_POC&apos;&#x0A;- Variable name: &apos;resultantDifference&apos;&#x0A;- Destination method: &apos;com.awt.AwtClass.AwtClass().new ActionListener() {...}.actionPerformed(...)&apos;&#x0A;- Variable expression: &apos;dc.diffCheckerMain(firstStringIp.getText(),secondStringIp.getText())&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;resultantDifference&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;com.awt{AwtClass.java" name="resultantDifference" replace="true" selection="957 70" stamp="1632296965622" varType="false" version="1.0"/>
+</session>

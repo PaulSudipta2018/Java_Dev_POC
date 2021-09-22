@@ -1,0 +1,45 @@
+package com.awt;
+
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.Frame;
+import java.awt.Label;
+import java.awt.TextArea;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class AwtClass extends Frame{
+
+	public AwtClass(){
+		Label firstString = new Label("First String");
+		firstString.setBounds(20, 50, 80, 20);  
+		Label secondString = new Label("Second String");
+		secondString.setBounds(20, 280, 80, 20);  
+		
+		TextArea firstStringIp = new TextArea();  
+		firstStringIp.setBounds(150, 50, 500, 200); 
+		TextArea secondStringIp = new TextArea();  
+		secondStringIp.setBounds(150, 280, 500, 200);  
+		
+		Button btn = new Button("Check Differences");
+		btn.setBounds(20, 340, 80, 30);
+		btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				firstStringIp.setBackground(Color.cyan);
+			}
+		});
+		
+		add(firstString);  
+		add(secondString);  
+		add(firstStringIp);
+		add(secondStringIp);
+		add(btn);
+		
+		setSize(300,300);  
+		setLayout(null);  
+		setVisible(true);  
+	}
+
+		
+}

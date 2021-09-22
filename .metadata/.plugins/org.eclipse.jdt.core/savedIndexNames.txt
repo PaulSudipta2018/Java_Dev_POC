@@ -1,0 +1,3 @@
+INDEX VERSION 1.131+/home/paul/Documents/Maven_Workspace/Diff_utility/.metadata/.plugins/org.eclipse.jdt.core
+2389568042.index
+4124791609.index

@@ -1,0 +1,14 @@
+package com.awt;
+
+import java.awt.Frame;
+import java.awt.Label;
+
+public class AwtClass extends Frame{
+
+	Label firstString = new Label("First String");
+	firstString.setBounds(20, 50, 80, 20);  
+	TextField firstStringIp = new TextField();  
+	Label secondString = new Label("Second String");
+	TextField firstStringIp = new TextField();  
+		
+}

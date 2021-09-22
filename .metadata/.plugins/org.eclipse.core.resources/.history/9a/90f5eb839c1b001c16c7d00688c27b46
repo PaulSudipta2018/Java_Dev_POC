@@ -1,0 +1,91 @@
+package com.awt;
+
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.Frame;
+import java.awt.Label;
+import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import com.bl.DiffChecker;
+
+public class AwtClass extends Frame{
+
+	public AwtClass(){
+		DiffChecker dc = new DiffChecker();
+		final String str1 = "", str2 = "";
+		Label firstString = new Label("First String");
+		firstString.setBounds(20, 50, 80, 20);  
+		Label secondString = new Label("Second String");
+		secondString.setBounds(550, 50, 80, 20);  
+		
+		TextArea firstStringIp = new TextArea();  
+		firstStringIp.setBounds(20, 80, 500, 200); 
+		TextArea secondStringIp = new TextArea();  
+		secondStringIp.setBounds(550, 80, 500, 200);  
+		
+		Button btn = new Button("Check Differences");
+		btn.setBounds(520, 340, 80, 30);
+		btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String s1 = "", s2 = "";
+				firstStringIp.disable();
+				secondStringIp.disable();
+				List<List<String>> resultantDifference = dc.diffCheckerMain(firstStringIp.getText(), secondStringIp.getText());
+				
+				StringBuilder sbl = new StringBuilder("");
+				boolean isClosed = false;
+				boolean isOpened = false;
+				for(String s : resultantDifference.get(0)) {
+					if(s.startsWith("+")) {
+						//color with green
+						if(!isOpened) {
+							sbl.append("`");
+							isOpened = true;
+						}
+						sbl.append(s.substring(1));
+					}else {
+						isOpened = false;
+						isClosed = true;
+						if(isOpened)
+						sbl.append("`");
+						if(s.startsWith("-")) {
+							sbl.append(s.substring(1));
+						}else {
+							sbl.append(s);
+						}
+					}
+				}
+				s1 = sbl.toString();
+				firstStringIp.setText(s1);
+				secondStringIp.setText(resultantDifference.get(1).toString());
+			}
+		});
+		
+		Button reset = new Button("Reset");
+		reset.setBounds(620, 340, 80, 30);
+		reset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				firstStringIp.enable();
+				secondStringIp.enable();
+				firstStringIp.setText("");
+				secondStringIp.setText("");
+				System.out.print(firstStringIp.getText());
+			}
+		});
+		add(firstString);  
+		add(secondString);  
+		add(firstStringIp);
+		add(secondStringIp);
+		add(btn);
+		add(reset);
+		
+		setSize(300,300);  
+		setLayout(null);  
+		setVisible(true);  
+	}
+
+		
+}

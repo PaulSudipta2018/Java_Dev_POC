@@ -1,0 +1,78 @@
+package com.awt;
+
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.Frame;
+import java.awt.Label;
+import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import com.bl.DiffChecker;
+
+public class AwtClass extends Frame{
+
+	public AwtClass(){
+		DiffChecker dc = new DiffChecker();
+		final String str1 = "", str2 = "";
+		Label firstString = new Label("First String");
+		firstString.setBounds(20, 50, 80, 20);  
+		Label secondString = new Label("Second String");
+		secondString.setBounds(20, 280, 80, 20);  
+		
+		TextArea firstStringIp = new TextArea();  
+		firstStringIp.setBounds(150, 50, 500, 200); 
+		TextArea secondStringIp = new TextArea();  
+		secondStringIp.setBounds(150, 280, 500, 200);  
+		
+		Button btn = new Button("Check Differences");
+		btn.setBounds(20, 340, 80, 30);
+		btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String s1 = "", s2 = "";
+				firstStringIp.disable();
+				secondStringIp.disable();
+				List<List<String>> resultantDifference = dc.diffCheckerMain(firstStringIp.getText(), secondStringIp.getText());
+				
+				StringBuilder sbl = new StringBuilder("");
+				for(String s : resultantDifference.get(0)) {
+					if(s.startsWith("+")) {
+						//color with green
+						sbl.append(s.substring(1));
+					}else if(s.startsWith("-")) {
+						//color with red
+						sbl.append(s.substring(1));
+					}
+				}
+				s1 = sbl.toString();
+				firstStringIp.setText(resultantDifference.get(0).toString());
+				secondStringIp.setText(resultantDifference.get(1).toString());
+			}
+		});
+		
+		Button reset = new Button("Reset");
+		reset.setBounds(20, 440, 80, 30);
+		reset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				firstStringIp.enable();
+				secondStringIp.enable();
+				firstStringIp.setText("");
+				secondStringIp.setText("");
+				System.out.print(firstStringIp.getText());
+			}
+		});
+		add(firstString);  
+		add(secondString);  
+		add(firstStringIp);
+		add(secondStringIp);
+		add(btn);
+		add(reset);
+		
+		setSize(300,300);  
+		setLayout(null);  
+		setVisible(true);  
+	}
+
+		
+}

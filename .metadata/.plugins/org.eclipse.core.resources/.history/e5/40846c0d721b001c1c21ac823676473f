@@ -1,0 +1,31 @@
+package com.awt;
+
+import java.awt.Frame;
+import java.awt.Label;
+import java.awt.TextField;
+
+public class AwtClass extends Frame{
+
+	public AwtClass(){
+		Label firstString = new Label("First String");
+		firstString.setBounds(20, 50, 80, 20);  
+		Label secondString = new Label("Second String");
+		secondString.setBounds(20, 80, 80, 20);  
+		
+		TextField firstStringIp = new TextField();  
+		firstStringIp.setBounds(120, 50, 100, 20); 
+		TextField secondStringIp = new TextField();  
+		secondStringIp.setBounds(120, 80, 100, 20);  
+		
+		add(firstString);  
+		add(secondString);  
+		add(firstStringIp);
+		add(secondStringIp);
+		
+		setSize(300,300);  
+		setLayout(null);  
+		setVisible(true);  
+	}
+	
+		
+}
