@@ -1,117 +1,50 @@
 package com.app;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.awt.AwtClass;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+
+import com.swing.SwingDemo;
 
 public class Application {
 
-	public static final String TEXT_RED = "\u001B[31m";
-	public static final String TEXT_RESET = "\u001B[0m";
-	public static final String TEXT_GREEN = "\u001B[32m";
-
 	public static void main(String[] args) throws IOException {
-		AwtClass awtclass = new AwtClass();
-//		String X = "EFG";
-//		String Y = "EFG";
-//
-//		String fileName1 = "/home/paul/Documents/files/file1.txt";
-//		String fileName2 = "/home/paul/Documents/files/file2.txt";
-//
-//		File file1 = new File(fileName1);
-//		File file2 = new File(fileName2);
-//
-//		BufferedReader bf1 = new BufferedReader(new FileReader(file1));
-//		BufferedReader bf2 = new BufferedReader(new FileReader(file2));
-//		int line = 1;
-//		while (true) {
-//			X = bf1.readLine();
-//			Y = bf2.readLine();
-//
-//			if(X == null || Y == null)break;
-//			System.out.println("--------Line "+line+" starts here----------------");
-//			// `lookup[i][j]` stores the length of LCS of substring
-//			// `X[0…i-1]`, `Y[0…j-1]`
-//			int m = X == null ? Y.length() : X.length();
-//			int n = Y == null ? X.length() : Y.length();
-//			int[][] lookup = new int[m + 1][n + 1];
-//			List<List<String>> diffs = new ArrayList<>();
-//			diffs.add(new ArrayList<>());
-//			diffs.add(new ArrayList<>());
-//
-//			// fill lookup table
-//			LCSLength(X, Y, X.length(), Y.length(), lookup);
-//
-//			// find the difference
-//			diff(X, Y, X.length(), Y.length(), lookup, diffs);
-//			System.out.println();
-//			for (int i = 0; i < 2; i++) {
-//				System.out.println(diffs.get(i).toString());
-//			}
-//			System.out.println("--------Line "+ line +" ends here----------------");
-//			line++;
-//		}
-//		bf1.close();
-//		bf2.close();
-//	}
-//
-//	// Function to fill the lookup table by finding the length of LCS
-//	// of substring `X[0…m-1]` and `Y[0…n-1]`
-//	public static void LCSLength(String X, String Y, int m, int n, int[][] lookup) {
-//		// first column of the lookup table will be all 0
-//		for (int i = 0; i <= m; i++) {
-//			lookup[i][0] = 0;
-//		}
-//
-//		// first row of the lookup table will be all 0
-//		for (int j = 0; j <= n; j++) {
-//			lookup[0][j] = 0;
-//		}
-//
-//		// fill the lookup table in a bottom-up manner
-//		for (int i = 1; i <= m; i++) {
-//			for (int j = 1; j <= n; j++) {
-//				// if current character of `X` and `Y` matches
-//				if (X.charAt(i - 1) == Y.charAt(j - 1)) {
-//					lookup[i][j] = lookup[i - 1][j - 1] + 1;
-//				}
-//				// otherwise, if the current character of `X` and `Y` don't match
-//				else {
-//					lookup[i][j] = Integer.max(lookup[i - 1][j], lookup[i][j - 1]);
-//				}
-//			}
-//		}
+		SwingDemo sd = new SwingDemo();
+
+		JFrame frame = sd.frame;
+	      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	      Container container = sd.frame.getContentPane();
+	      JTextPane textPane = new JTextPane();
+	      textPane.setBackground(Color.red);
+	      SimpleAttributeSet attributeSet = new SimpleAttributeSet();
+	      StyleConstants.setItalic(attributeSet, true);
+	      textPane.setCharacterAttributes(attributeSet, true);
+	      textPane.setText("Learn with Text and "); Font font = new Font("Verdana", Font.BOLD, 22);
+	      textPane.setFont(font);
+	      StyledDocument doc = textPane.getStyledDocument();
+	      Style style = textPane.addStyle("", null);
+	      StyleConstants.setForeground(style, Color.orange);
+	      StyleConstants.setBackground(style, Color.black);
+	      try {
+			doc.insertString(doc.getLength(), "Video Tutorials ", style);
+		} catch (BadLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	      JScrollPane scrollPane = new JScrollPane(textPane);
+	      container.add(scrollPane, BorderLayout.CENTER);
+	      frame.setSize(550, 300);
+	      frame.setVisible(true);
 	}
-
-	public static void diff(String X, String Y, int m, int n, int[][] lookup, List<List<String>> differences) {
-		// if the last character of `X` and `Y` matches
-		if (m > 0 && n > 0 && X.charAt(m - 1) == Y.charAt(n - 1)) {
-			diff(X, Y, m - 1, n - 1, lookup, differences);
-			System.out.print(" " + X.charAt(m - 1));
-			differences.get(0).add(" " + X.charAt(m - 1));
-			differences.get(1).add(" " + Y.charAt(n - 1));
-		}
-
-		// if the current character of `Y` is not present in `X`
-		else if (n > 0 && (m == 0 || lookup[m][n - 1] >= lookup[m - 1][n])) {
-			diff(X, Y, m, n - 1, lookup, differences);
-			System.out.print(" +" + Y.charAt(n - 1));
-			differences.get(0).add(" -" + Y.charAt(n - 1));
-			differences.get(1).add(" +" + Y.charAt(n - 1));
-		}
-
-		// if the current character of `X` is not present in `Y`
-		else if (m > 0 && (n == 0 || lookup[m][n - 1] < lookup[m - 1][n])) {
-			diff(X, Y, m - 1, n, lookup, differences);
-			System.out.print(" -" + X.charAt(m - 1));
-			differences.get(0).add(" +" + X.charAt(m - 1));
-			differences.get(1).add(" -" + X.charAt(m - 1));
-		}
-	}
-
 }
